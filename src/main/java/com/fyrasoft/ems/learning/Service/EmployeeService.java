@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -21,12 +22,21 @@ public class EmployeeService {
         return repository.save(EmployeeDetails);
     }
 
+    public Employee updateEmployee ( Employee e){
+        Employee updated = new Employee();
+        updated.setId(e.getId());
+        updated.setName(e.getName());
+        updated.setDepartment(e.getDepartment());
+        updated.setAddress(e.getAddress());
+        return repository.save(updated);
+    }
+
     public List<Employee>getAll(){
         return repository.findAll();
     }
 
-    public Employee getById(Integer id){
-        return repository.findById(id).orElse(null);
+    public Optional<Employee> getById(Integer id){
+        return repository.findById(id);
     }
 
     @Transactional
